@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { User, FileText, Clock, HelpCircle, LogOut, Bell, Search, Menu, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 // Mock ProtectedRoute component for demonstration
 const ProtectedRoute = ({ children }) => {
@@ -7,6 +8,7 @@ const ProtectedRoute = ({ children }) => {
 };
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const [username] = useState("Citizen"); // Static for demo - replace with API call
   const [activeTab, setActiveTab] = useState("dashboard");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -14,6 +16,7 @@ export default function HomePage() {
   const handleLogout = () => {
     // In a real app, you'd clear authentication state and redirect
     alert("Logout clicked - would redirect to login page");
+    navigate("/")
     // Navigate logic would go here
   };
 
@@ -91,8 +94,8 @@ export default function HomePage() {
       <div className="flex h-screen bg-gray-50">
         {/* Mobile Sidebar Overlay */}
         {isSidebarOpen && (
-          <div 
-            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" 
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
             onClick={closeSidebar}
           ></div>
         )}
@@ -129,11 +132,10 @@ export default function HomePage() {
                     setActiveTab(item.id);
                     closeSidebar();
                   }}
-                  className={`w-full text-left px-3 lg:px-4 py-2 lg:py-3 rounded-lg flex items-center space-x-3 transition-colors ${
-                    activeTab === item.id
+                  className={`w-full text-left px-3 lg:px-4 py-2 lg:py-3 rounded-lg flex items-center space-x-3 transition-colors ${activeTab === item.id
                       ? "bg-blue-100 text-blue-800 border-l-4 border-blue-500"
                       : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
-                  }`}
+                    }`}
                 >
                   <Icon size={18} />
                   <span className="font-medium text-sm lg:text-base">{item.label}</span>
@@ -166,13 +168,13 @@ export default function HomePage() {
                 >
                   <Menu size={20} />
                 </button>
-                
+
                 <div>
                   <h1 className="text-xl lg:text-2xl font-bold text-gray-800">Welcome back, {username}! 👋</h1>
                   <p className="text-gray-500 mt-1 text-sm lg:text-base hidden sm:block">Manage your government services efficiently</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center space-x-2 lg:space-x-4">
                 <button className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
                   <Search size={18} />
