@@ -15,6 +15,7 @@ export default function HomePage() {
 
   const handleLogout = () => {
     // In a real app, you'd clear authentication state and redirect
+    localStorage.removeItem('token')
     alert("Logout clicked - would redirect to login page");
     navigate("/")
     // Navigate logic would go here
